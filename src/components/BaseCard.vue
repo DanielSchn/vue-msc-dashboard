@@ -13,9 +13,12 @@
   
   <style scoped>
   .base-card {
-    background: #011F35;
+    /* background: #011F35; */
+    background-color: blueviolet;
     border-radius: 16px;
     padding: 24px 32px;
+    color: #FFFFFF;
+    box-sizing: border-box;
   }
   </style>
   
