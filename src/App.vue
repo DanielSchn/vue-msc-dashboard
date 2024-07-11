@@ -1,21 +1,27 @@
 <template>
-      <BaseCard>
-      <h2>Card Title</h2>
-      <p>This is some content inside the card.</p>
-    </BaseCard>
-    <BaseCard>
-      <h2>Another Card</h2>
-      <p>Different content in another card.</p>
-    </BaseCard>
+  <BaseCard>
+    <h2>Card Title</h2>
+    <p>This is some content inside the card.</p>
+  </BaseCard>
+  <BaseCard>
+    <h2>Another Card</h2>
+    <p>Different content in another card.</p>
+  </BaseCard>
 </template>
 
 <script>
 import BaseCard from './components/BaseCard.vue';
+import { stockService } from '@/services/stockService';
 
 export default {
   name: 'App',
   components: {
     BaseCard,
+  },
+  async created() {
+    // this.data = await stockService.getRevenue('$AAPL');
+    this.data = await stockService.fetchData('$AAPL');
+    console.log('Loaded data', this.data);
   }
 }
 </script>
@@ -23,7 +29,7 @@ export default {
 <style>
 body {
   margin: 0;
- 
+
 }
 
 #app {
