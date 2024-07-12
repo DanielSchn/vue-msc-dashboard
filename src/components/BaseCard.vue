@@ -13,10 +13,10 @@
   
   <style scoped>
   .base-card {
-    /* background: #011F35; */
-    background-color: blueviolet;
+    background: #011F35;
+    /* background-color: blueviolet; */
     border-radius: 16px;
-    padding: 24px 32px;
+    padding: 24px 20px;
     color: #FFFFFF;
     box-sizing: border-box;
   }
