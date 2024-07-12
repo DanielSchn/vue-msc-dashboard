@@ -39,21 +39,22 @@
       </section>
       <section class="row row-two">
         <BaseCard class="card-two">
-          <h2>CARD TWO</h2>
+          <h1>Revenue last 3 years</h1>
         </BaseCard>
         <BaseCard class="card-three">
-          <h2>CARD THREE</h2>
+          <h1>Revenue Breakdown Magnificent Seven</h1>
         </BaseCard>
       </section>
       <section class="row row-three">
         <BaseCard class="card-four">
-          <h2>CARD FOUR</h2>
+          <h1>Net income TTM</h1>
+          <NetIncomeChart :stockData="pseudodata"/>
         </BaseCard>
         <BaseCard class="card-five">
-          <h2>CARD FIVE</h2>
+          <h1>Gross Margin in % LQ</h1>
         </BaseCard>
         <BaseCard class="card-six">
-          <h2>CARD SIX</h2>
+          <h1>Revenue Growth in % YoY</h1>
         </BaseCard>
       </section>
 
@@ -75,6 +76,7 @@ import METAImage from './assets/img/$META.png';
 import MSFTImage from './assets/img/$MSFT.png';
 import NVDAImage from './assets/img/$NVDA.png';
 import TSLAImage from './assets/img/$TSLA.png';
+import NetIncomeChart from './components/NetIncomeChart.vue';
 
 export default {
   data() {
@@ -94,6 +96,7 @@ export default {
   name: 'App',
   components: {
     BaseCard,
+    NetIncomeChart
   },
   async created() {
     // await this.loadStockData();
@@ -138,6 +141,17 @@ export default {
       } else {
         subCardsContainer.scrollLeft -= 100;
       }
+    },
+    formattedStockData() {
+      const formattedData = {};
+      for (const stock of this.stocks) {
+        const key = `data${stock.symbol.substring(1)}`;
+        const data = this.stockData[key];
+        if (data && data[3]) {  // Use the 4th element for '4Q23'
+          formattedData[stock.name] = { netIncome: data[3]['4Q23'] || 0 };
+        }
+      }
+      return formattedData;
     }
   },
 };
@@ -228,6 +242,12 @@ main {
 .row-two,
 .row-three {
   display: flex;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+  }
 }
 
 .row-one {
