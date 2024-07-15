@@ -44,6 +44,8 @@
         </BaseCard>
         <BaseCard class="card-three">
           <h1>Revenue Breakdown Magnificent Seven</h1>
+          <Doughnut/>
+          <p>In Billion USD TTM</p>
         </BaseCard>
       </section>
       <section class="row row-three">
@@ -81,6 +83,7 @@ import TSLAImage from './assets/img/$TSLA.png';
 import NetIncomeChart from './components/NetIncomeChart.vue';
 import GrossMarginChart from './components/GrossMarginChart.vue';
 import RevenueLastChart from './components/RevenueLastChart.vue';
+import Doughnut from './components/Doughnut.vue';
 
 export default {
   data() {
@@ -102,7 +105,8 @@ export default {
     BaseCard,
     NetIncomeChart,
     GrossMarginChart,
-    RevenueLastChart
+    RevenueLastChart,
+    Doughnut
   },
   async created() {
     // await this.loadStockData();
@@ -264,7 +268,7 @@ main {
 
 .row-two {
   height: 35%;
-  /* width: 100%; */
+  width: 100%;
   max-height: 350px;
 }
 
@@ -340,12 +344,23 @@ main {
 }
 
 .card-two {
-  flex-grow: 1;
-  flex-basis: 0;
+  width: 58%;
+  /* flex-grow: 1;
+  flex-basis: 0; */
 }
 
 .card-three {
   width: 40%;
+  position: relative;
+
+  p {
+    font-size: 8px;
+    margin: 0;
+    position: absolute;
+    right: 74px;
+    bottom: 32px;
+    color: #9E9E9E;
+  }
 }
 
 .card-four {
