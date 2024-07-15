@@ -40,6 +40,7 @@
       <section class="row row-two">
         <BaseCard class="card-two">
           <h1>Revenue last 3 years</h1>
+          <RevenueLastChart/>
         </BaseCard>
         <BaseCard class="card-three">
           <h1>Revenue Breakdown Magnificent Seven</h1>
@@ -52,6 +53,7 @@
         </BaseCard>
         <BaseCard class="card-five">
           <h1>Gross Margin in % LQ</h1>
+          <GrossMarginChart :stockData="pseudodata"/>
         </BaseCard>
         <BaseCard class="card-six">
           <h1>Revenue Growth in % YoY</h1>
@@ -77,6 +79,8 @@ import MSFTImage from './assets/img/$MSFT.png';
 import NVDAImage from './assets/img/$NVDA.png';
 import TSLAImage from './assets/img/$TSLA.png';
 import NetIncomeChart from './components/NetIncomeChart.vue';
+import GrossMarginChart from './components/GrossMarginChart.vue';
+import RevenueLastChart from './components/RevenueLastChart.vue';
 
 export default {
   data() {
@@ -96,7 +100,9 @@ export default {
   name: 'App',
   components: {
     BaseCard,
-    NetIncomeChart
+    NetIncomeChart,
+    GrossMarginChart,
+    RevenueLastChart
   },
   async created() {
     // await this.loadStockData();

@@ -11,7 +11,7 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 export default {
-  name: 'NetIncomeChart',
+  name: 'GrossMarginChart',
   components: {
     Bar
   },
@@ -20,23 +20,22 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        Apple: { netIncome: 22.96 },
-        Amazon: { netIncome: 10.62 },
-        Google: { netIncome: 20.69 },
-        Meta: { netIncome: 14.02 },
-        Microsoft: { netIncome: 20.09 },
-        Nvidia: { netIncome: 1.42 },
-        Tesla: { netIncome: 7.93 }
+        Apple: { grossMargin: 45.2 },
+        Amazon: { grossMargin: 45.5 },
+        Google: { grossMargin: 56.5 },
+        Meta: { grossMargin: 80.8 },
+        Microsoft: { grossMargin: 70.1 },
+        Nvidia: { grossMargin: 63.3 },
+        Tesla: { grossMargin: 17.6 }
       })
     }
   },
   computed: {
     chartData() {
       const labels = Object.keys(this.stockData);
-      const data = labels.map(label => this.stockData[label].netIncome || 0);
+      const data = labels.map(label => this.stockData[label].grossMargin || 0);
 
-      // Sortiere Labels und Daten entsprechend den netIncome-Werten (absteigend)
-      labels.sort((a, b) => this.stockData[b].netIncome - this.stockData[a].netIncome);
+      labels.sort((a, b) => this.stockData[b].grossMargin - this.stockData[a].grossMargin);
       data.sort((a, b) => b - a);
 
       // Festgelegte Farben in der gewünschten Reihenfolge
@@ -69,31 +68,47 @@ export default {
             min: 0, // Mindestwert für die x-Achse
             ticks: {
               stepSize: 10, // Schritte auf der x-Achse
-              callback: function(value) {
-                if (value % 20 === 0 || value === 0 || value === 100) {
-                  return value.toString(); // Zeigt 0, 20, 40, 60, 80, 100
-                } else {
-                  return ''; // Versteckt alle anderen Werte
-                }
+              callback: function() {
+                  return '';
               }
             },
             grid: {
               display: true, // Grid für die x-Achse anzeigen
-              color: '#9E9E9E66'
+              color: '#9E9E9E66',
+              borderColor: 'rgba(0,0,0,0)',
+              borderWidth: 0
             }
           },
           y: {
             stacked: true,
             grid: {
               display: true, // Grid für die y-Achse anzeigen
-              color: '#9E9E9E66' // Farbe des Grids
+              color: '#9E9E9E66', // Farbe des Grids
+              borderColor: 'rgba(0,0,0,0)',
+              borderWidth: 0
             }
           }
         },
         plugins: {
           legend: {
             display: false // Legende ausblenden
-          }
+          },
+          // afterDraw: function(chart) {
+          //   const ctx = chart.ctx;
+          //   chart.data.datasets.forEach((dataset) => {
+          //     chart.data.labels.forEach((label, j) => {
+          //       const x = chart.scales['x'].getCenterPoint(j);
+          //       const y = chart.scales['y'].getPixelForValue(dataset.data[j]);
+
+          //       // Position the label next to the bar (adjust offsets as needed)
+          //       ctx.fillText(label, x + 10, y + 5);
+
+          //       // Style the label text (optional)
+          //       ctx.fillStyle = '#333'; // Text color
+          //       ctx.font = '12px Arial'; // Font style
+          //     });
+          //   });
+          // }
         }
       };
     }
